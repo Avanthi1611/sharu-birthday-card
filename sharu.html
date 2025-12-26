@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Letter for Sharu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --env-blue: #1e40af;
+            --env-dark: #162e7a;
+            --paper: #f0f8ff;
+            --line-color: #a5b7d6;
+            --ink-color: #1e3a8a;
+            --gold: #ffd700;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Dancing Script', cursive;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND STARS --- */
+        .stars {
+            width: 1px; height: 1px; position: fixed; top: 0; left: 0; background: white; z-index: 0; 
+            box-shadow: 2vw 5vh 2px white, 10vw 8vh 2px white, 15vw 15vh 1px white, 22vw 22vh 1px white, 28vw 12vh 2px white, 32vw 32vh 1px white, 38vw 18vh 2px white, 42vw 35vh 1px white, 48vw 25vh 2px white, 53vw 42vh 1px white, 58vw 15vh 2px white, 63vw 38vh 1px white, 68vw 28vh 2px white, 73vw 45vh 1px white, 78vw 32vh 2px white, 83vw 48vh 1px white, 88vw 20vh 2px white, 93vw 52vh 1px white, 98vw 35vh 2px white, 5vw 60vh 1px white, 12vw 65vh 2px white, 18vw 72vh 1px white, 25vw 78vh 2px white, 30vw 85vh 1px white, 35vw 68vh 2px white, 40vw 82vh 1px white, 45vw 92vh 2px white, 50vw 75vh 1px white, 55vw 88vh 2px white, 60vw 95vh 1px white, 65vw 72vh 2px white, 70vw 85vh 1px white, 75vw 78vh 2px white, 80vw 92vh 1px white, 85vw 82vh 2px white, 90vw 88vh 1px white, 95vw 75vh 2px white;
+            animation: twinkle 8s infinite linear; pointer-events: none;
+        }
+        .stars::after {
+            content: ""; position: absolute; width: 1px; height: 1px; background: white;
+            box-shadow: 8vw 12vh 2px white, 16vw 18vh 1px white, 24vw 25vh 2px white, 33vw 15vh 1px white, 41vw 28vh 2px white, 49vw 35vh 1px white, 57vw 22vh 2px white, 65vw 42vh 1px white, 73vw 28vh 2px white, 81vw 48vh 1px white, 89vw 32vh 2px white, 97vw 45vh 1px white, 3vw 68vh 2px white, 11vw 75vh 1px white, 19vw 82vh 2px white, 27vw 88vh 1px white, 35vw 72vh 2px white, 43vw 85vh 1px white, 51vw 92vh 2px white, 59vw 78vh 1px white;
+            animation: twinkle 6s infinite linear reverse;
+        }
+        .shooting-star {
+            position: absolute; width: 100px; height: 2px; background: linear-gradient(90deg, white, transparent);
+            animation: shoot 5s infinite ease-in; z-index: 0; pointer-events: none; opacity: 0;
+        }
+        .shooting-star:nth-child(1) { top: 15%; left: -100px; animation-delay: 2s; }
+        .shooting-star:nth-child(2) { top: 40%; left: -100px; animation-delay: 5s; }
+        .shooting-star:nth-child(3) { top: 65%; left: -100px; animation-delay: 8s; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.3; } }
+        @keyframes shoot { 0% { transform: translateX(0) translateY(0) rotate(25deg); opacity: 1; } 20% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; } 100% { opacity: 0; } }
+
+        /* --- ENVELOPE STYLES --- */
+        .envelope-wrapper { position: relative; width: 380px; height: 280px; cursor: pointer; z-index: 2; transition: transform 3s ease-in-out; }
+        .envelope-back { position: absolute; width: 100%; height: 100%; background: var(--env-dark); border-radius: 6px; z-index: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .envelope-front { position: absolute; width: 100%; height: 100%; background: var(--env-blue); clip-path: polygon(0 35%, 50% 75%, 100% 35%, 100% 100%, 0 100%); z-index: 3; border-radius: 0 0 6px 6px; }
+        .flap { position: absolute; top: 0; width: 100%; height: 140px; background: var(--env-blue); clip-path: polygon(0 0, 50% 100%, 100% 0); transform-origin: top; transition: transform 0.8s ease; z-index: 4; }
+        .seal { position: absolute; top: 110px; left: 50%; transform: translateX(-50%); width: 65px; height: 65px; background: #ef4444; border: 4px solid #f87171; border-radius: 50%; z-index: 5; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.4s; }
+        .seal::before { content: "❤"; color: #7f1d1d; font-size: 30px; }
+
+        .letter { position: absolute; top: 5px; left: 15px; width: 350px; height: 260px; background: #fff; background-image: repeating-linear-gradient(transparent, transparent 29px, var(--line-color) 30px); background-size: 100% 100%; padding: 0; box-sizing: border-box; z-index: 2; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #ddd; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        .open .flap { transform: rotateX(180deg); z-index: 1; }
+        .open .seal { opacity: 0; pointer-events: none; }
+        .revealed .letter { transform: translateY(-160px); }
+
+        /* Sink Animation for Stage 7 */
+        .sink-down { transform: translateY(200vh) !important; }
+
+        .pulsing { animation: magicPhase 1.2s ease-in-out forwards; }
+        @keyframes magicPhase { 0% { opacity: 1; filter: blur(0); } 50% { opacity: 0; filter: blur(5px); transform: scale(0.98); } 100% { opacity: 1; filter: blur(0); transform: scale(1); } }
+
+        .confetti { position: absolute; width: 6px; height: 6px; z-index: 100; pointer-events: none; border-radius: 2px; opacity: 1; }
+        @keyframes confetti-fall { 0% { transform: translate(0,0) rotate(0deg); opacity: 1; } 80% { opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) rotate(var(--r)); opacity: 0; } }
+
+        /* CANDLE STYLES */
+        .candle-container { position: relative; width: 30px; height: 70px; margin: 50px auto 0 auto; background: linear-gradient(#fff9c4, #fde68a); border: 1px solid #d4c5a6; border-radius: 4px; box-shadow: inset -5px 0 5px rgba(0,0,0,0.05); }
+        .candle-container::before { content: ""; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 2px; height: 10px; background: #333; border-radius: 2px; }
+        .flame { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); width: 16px; height: 30px; background: radial-gradient(ellipse at bottom, #ffeb3b 0%, #ff9800 50%, #ff5722 100%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6), 0 0 30px rgba(255, 165, 0, 0.3); animation: flicker 0.1s infinite alternate ease-in-out; cursor: pointer; z-index: 10; transform-origin: center bottom; transition: all 0.3s ease; }
+        .flame::after { content: ""; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 6px; height: 12px; background: rgba(255, 255, 255, 0.8); border-radius: 50%; box-shadow: 0 0 5px #fff; }
+        .smoke { position: absolute; top: -25px; left: 50%; transform: translateX(-50%) scale(0.1); width: 10px; height: 40px; background: radial-gradient(circle, rgba(120,120,120,0.8) 0%, rgba(120,120,120,0) 70%); filter: blur(3px); border-radius: 50%; opacity: 0; pointer-events: none; }
+        
+        .blown-out .flame { animation: none !important; opacity: 0; display: none; }
+        .blown-out .smoke { animation: smokeRise 4s ease-out forwards; }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; } 100% { transform: translateX(-50%) scale(1.05) rotate(2deg); opacity: 1; } }
+        @keyframes smokeRise { 0% { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.5); } 10% { opacity: 0.8; transform: translateX(-50%) translateY(-10px) scale(1); } 80% { opacity: 0.4; } 100% { opacity: 0; transform: translateX(-50%) translateY(-80px) scale(3); } }
+        
+        .fade-out { opacity: 0 !important; transition: opacity 0.8s ease; pointer-events: none; }
+
+        /* FINAL STAR TEXT */
+        .star-text {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ffd700;
+            opacity: 0;
+            transition: opacity 3s ease-in;
+            z-index: 1000;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+            animation: softGlow 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes softGlow {
+            0% { text-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 10px rgba(255, 215, 0, 0.5); transform: translate(-50%, -50%) scale(1); }
+            100% { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 35px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.6); transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        /* LAYOUT & DECORATIONS */
+        .letter-content { width: 100%; height: 100%; position: relative; text-align: center; padding-top: 40px; top: 0; left: 0; display: none; }
+        .date { font-family: 'Arial', sans-serif; font-size: 0.7rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; display: block;}
+        h1 { font-family: 'Dancing Script', cursive; color: var(--env-blue); font-size: 2.2rem; margin: 5px 0 0 0; line-height: 1.2; text-shadow: 1px 1px 0px rgba(0,0,0,0.1); }
+        .subtitle { font-family: 'Arial', sans-serif; font-size: 0.5rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+        .custom-message-layout { padding: 10px 20px ; text-align: left; }
+        .custom-header { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--env-blue); margin: 0 0 5px 0; text-align: left; }
+        .heart-frame { float: right; width: 130px; height: 120px; margin-left: 8px; margin-bottom: 0px; position: relative; shape-outside: polygon(50% 0%, 100% 35%, 80% 100%, 50% 80%, 20% 100%, 0% 35%); }
+        .heart-border { width: 100%; height: 100%; background: var(--env-blue); clip-path: path('M65 110 L18 68 Q0 50 18 30 Q32 10 65 35 Q98 10 112 30 Q130 50 112 68 L65 110 Z'); display: flex; justify-content: center; align-items: center; }
+        .heart-border img { width: 90%; height: 90%; object-fit: cover; clip-path: path('M58 100 L16 62 Q0 45 16 28 Q30 10 58 32 Q86 10 100 28 Q116 45 100 62 L58 100 Z'); background: white; }
+        .message-text { font-family: 'Caveat', cursive; font-size: 0.8rem; color: var(--ink-color); line-height: 1.2; margin: 0; font-weight: 600; }
+        .decoration-swirl { position: absolute; top: 10px; width: 50px; height: 50px; fill: none; stroke: var(--env-blue); stroke-width: 2; stroke-linecap: round; }
+        .swirl-left { left: 10px; transform: scaleX(1); }
+        .swirl-right { right: 10px; transform: scaleX(-1); }
+        .sparkle { position: absolute; color: var(--env-blue); font-size: 1.2rem; animation: twinkle 2s infinite; }
+        .s1 { top: 60px; left: 30px; }
+        .s2 { top: 60px; right: 30px; animation-delay: 1s;}
+        .sketch-cake { position: absolute; bottom: 5px; left: 5px; width: 90px; height: 90px; z-index: 10; }
+        .sketch-bouquet { position: absolute; bottom: 5px; right: 5px; width: 100px; height: 100px; z-index: 10; }
+        #s4 .inner-content { padding: 20px 35px; }
+        .floral-frame::before { content: ""; position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px; pointer-events: none; z-index: 0; border-radius: 4px; border: 1px solid rgba(30, 64, 175, 0.2); background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 340 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cstyle%3E.v%7Bfill:none;stroke:%231e40af;stroke-width:1;stroke-opacity:0.4;stroke-linecap:round;%7D%3C/style%3E%3C/defs%3E%3Cpath class='v' d='M5,40 Q5,5 40,5 M5,25 Q15,15 25,5' /%3E%3Cpath class='v' d='M5,40 C0,50 15,35 10,25' stroke-width='0.5'/%3E%3Cpath class='v' d='M300,5 Q335,5 335,40 M315,5 Q325,15 335,25' /%3E%3Cpath class='v' d='M335,40 C340,50 325,35 330,25' stroke-width='0.5'/%3E%3Cpath class='v' d='M335,210 Q335,245 300,245 M335,225 Q325,235 315,245' /%3E%3Cpath class='v' d='M335,210 C340,200 325,215 330,225' stroke-width='0.5'/%3E%3Cpath class='v' d='M40,245 Q5,245 5,210 M25,245 Q15,235 5,225' /%3E%3Cpath class='v' d='M5,210 C0,200 15,215 10,225' stroke-width='0.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 100% 100%; }
+        .active { display: block; }
+
+        /* --- NEW BUTTON STYLES (FLIP) --- */
+        
+        /* The standard Yes Button */
+        .btn { 
+            background: var(--env-blue); color: white; border: none; padding: 0 20px; 
+            line-height: 30px; border-radius: 15px; cursor: pointer; font-family: sans-serif; 
+            margin: 5px 5px; font-size: 0.8rem; z-index: 50; position: relative; 
+            transition: 0.2s; display: inline-block; vertical-align: top;
+        }
+
+        /* The Flipping "No" Button */
+        .btn-flip {
+            opacity: 1; outline: 0; color: #fff; line-height: 30px; position: relative; 
+            text-align: center; display: inline-block; text-decoration: none; 
+            font-family: sans-serif; font-size: 0.8rem; margin: 5px 5px; cursor: pointer;
+            vertical-align: top;
+        }
+        
+        /* The Back Face (Hidden "Yes") */
+        .btn-flip:after {
+            top: 0; left: 0; opacity: 0; width: 100%; color: white; display: block; 
+            transition: 0.5s; position: absolute; background: #eaace0; /* Red/Pink reveal */
+            content: attr(data-back); transform: translateY(-50%) rotateX(90deg);
+            border-radius: 15px; pointer-events: none; /* Let click pass to parent */
+        }
+        
+        /* The Front Face (Visible "No") */
+        .btn-flip:before {
+            top: 0; left: 0; opacity: 1; color: white; display: block; 
+            padding: 0 20px; line-height: 30px; transition: 0.5s; position: relative; 
+            background: var(--env-blue); /* Same as Yes button */
+            content: attr(data-front); transform: translateY(0) rotateX(0);
+            border-radius: 15px;
+        }
+
+        /* Hover Effects */
+        .btn-flip:hover:after { opacity: 1; transform: translateY(0) rotateX(0); }
+        .btn-flip:hover:before { opacity: 0; transform: translateY(50%) rotateX(90deg); }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <div class="star-text" id="final-message">
+        Sharu, you will be my date... Ideally, forever. <br>
+        I can't wait to meet you.
+    </div>
+
+    <div class="envelope-wrapper" id="env" onclick="nextState()">
+        <div class="flap"></div>
+        <div class="seal"></div>
+        <div class="envelope-back"></div>
+
+        <div class="letter" id="letter">
+            
+            <div class="letter-content active" id="s3">
+                <svg class="decoration-swirl swirl-left" viewBox="0 0 50 50"><path d="M5,45 C5,20 20,5 45,5 M5,45 C25,45 40,30 40,20" /><circle cx="40" cy="20" r="2" fill="#1e40af" /></svg>
+                <svg class="decoration-swirl swirl-right" viewBox="0 0 50 50"><path d="M5,45 C5,20 20,5 45,5 M5,45 C25,45 40,30 40,20" /><circle cx="40" cy="20" r="2" fill="#1e40af" /></svg>
+                <div class="sparkle s1">✨</div><div class="sparkle s2">✨</div>
+                
+                <svg class="sketch-cake" viewBox="0 0 100 100">
+                    <ellipse cx="50" cy="90" rx="40" ry="10" fill="none" stroke="#555" stroke-width="2" />
+                    <path d="M20,60 L20,80 C20,90 80,90 80,80 L80,60" fill="#5D4037" stroke="#3E2723" stroke-width="2"/>
+                    <ellipse cx="50" cy="60" rx="30" ry="10" fill="#795548" stroke="#3E2723" stroke-width="2" />
+                    <path d="M20,60 Q30,70 35,60 Q40,75 45,60 Q55,70 60,60 Q70,75 80,60" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="35" cy="55" r="4" fill="#ef4444" /><circle cx="50" cy="58" r="4" fill="#ef4444" /><circle cx="65" cy="55" r="4" fill="#ef4444" />
+                </svg>
+    
+                <svg class="sketch-bouquet" viewBox="0 0 100 100">
+                    <path d="M50,95 Q45,70 40,45" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M50,95 Q55,70 60,45" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M50,95 L50,40" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M40,70 Q50,75 60,70" fill="none" stroke="#1e40af" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M45,72 L40,80 M55,72 L60,80" fill="none" stroke="#1e40af" stroke-width="2" stroke-linecap="round"/>
+                    <g transform="translate(50,40)"><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(-20)"/><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(20)"/><ellipse cx="0" cy="-2" rx="4" ry="6" fill="#f472b6" stroke="#be123c" stroke-width="1"/></g>
+                      <g transform="translate(38,48) scale(0.9)"><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(-30)"/><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(10)"/><ellipse cx="0" cy="-2" rx="4" ry="6" fill="#f472b6" stroke="#be123c" stroke-width="1"/></g>
+                      <g transform="translate(62,48) scale(0.9) rotate(10)"><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(-10)"/><ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fda4af" stroke="#be123c" stroke-width="1" transform="rotate(30)"/><ellipse cx="0" cy="-2" rx="4" ry="6" fill="#f472b6" stroke="#be123c" stroke-width="1"/></g>
+                      <path d="M45,60 Q30,50 35,65" fill="none" stroke="#2e7d32" stroke-width="2"/><path d="M55,60 Q70,50 65,65" fill="none" stroke="#2e7d32" stroke-width="2"/>
+                </svg>
+
+                <span class="date">27 . 12 . 2025</span>
+                <h1>Happy Birthday<br>Sharu</h1>
+                <p class="subtitle">Can't believe you're twenty Three now!</p>
+            </div>
+
+            <div class="letter-content custom-message-layout floral-frame" id="s4">
+                <div class = "inner-content"><div class="heart-frame">
+                    <div class="heart-border"><img src="prabhaAndSharu.jpeg" alt="Photo"></div>
+                </div>
+                <h2 class="custom-header">Dear Sharu,</h2>
+                <p class="message-text">
+                    Today is your special day, but honestly, every day with you already feels special. You have this incredible way of making every moment feel brighter, and I'm beyond grateful for the love, joy, and warmth you bring into my life. On your special day, I want you to know just how deeply you mean to me. Thank you for being my love, my joy, and my everything.
+                    I wish you all the happiness, success, and love in the world today and always. I love you more than you'll ever know!
+                </p>
+            </div></div>
+
+            <div class="letter-content floral-frame" id="s5">
+                <h1 id="wish-title" style="transition: opacity 0.5s;">Make a Virtual Wish</h1>
+                <p id="wish-instruction" style="font-family:'Arial'; font-size:0.8rem; margin-top:10px; margin-bottom: 20px; transition: opacity 0.5s;">Tap the flame to blow it out...</p>
+                <div class="candle-container" id="candle">
+                    <div class="smoke"></div>
+                    <div class="flame" onclick="blowCandle(event)"></div>
+                </div>
+            </div>
+
+            <div class="letter-content floral-frame" id="s6">
+                <h1>Will you be<br>my Date?</h1>
+                <button class="btn" onclick="handleDateResponse(event)">Yes</button>
+                <a href="#" class="btn-flip" data-back="Yes" data-front="No " onclick="handleDateResponse(event)"></a>
+            </div>
+
+        </div>
+
+        <div class="envelope-front"></div>
+    </div>
+
+    <script>
+        let currentState = 1;
+        const letter = document.getElementById('letter');
+        const envWrapper = document.getElementById('env');
+        
+        function nextState() {
+            if (currentState === 5) return;
+            if (currentState === 6) return; 
+
+            if (currentState === 1) {
+                envWrapper.classList.add('open');
+                currentState++;
+            } 
+            else if (currentState === 2) {
+                envWrapper.classList.add('revealed');
+                currentState++;
+            } 
+            else if (currentState >= 3 && currentState < 6) {
+                switchContent();
+            }
+        }
+
+        function switchContent() {
+            letter.classList.add('pulsing');
+            explodeConfetti();
+
+            setTimeout(() => {
+                document.getElementById(`s${currentState}`).classList.remove('active');
+                currentState++;
+                document.getElementById(`s${currentState}`).classList.add('active');
+            }, 600);
+
+            setTimeout(() => {
+                letter.classList.remove('pulsing');
+            }, 1200);
+        }
+
+        function blowCandle(e) {
+            e.stopPropagation(); 
+            const candle = document.getElementById('candle');
+            const title = document.getElementById('wish-title');
+            const instruction = document.getElementById('wish-instruction');
+            
+            candle.classList.add('blown-out');
+            title.classList.add('fade-out');
+            instruction.classList.add('fade-out');
+            
+            setTimeout(() => {
+                switchContent(); 
+            }, 4000);
+        }
+
+        function handleDateResponse(e) {
+            e.preventDefault(); // Prevent anchor jump
+            e.stopPropagation(); // Stop bubbling
+            currentState = 6; // Lock state
+
+            // A. Drop the letter back IN
+            envWrapper.classList.remove('revealed'); 
+            
+            // B. Wait for drop (1s), then Sink the whole envelope
+            setTimeout(() => {
+                envWrapper.classList.add('sink-down');
+                
+                // C. Fade in the final Star Text
+                setTimeout(() => {
+                    document.getElementById('final-message').style.opacity = '1';
+                }, 1000);
+                
+            }, 1200);
+        }
+
+        function explodeConfetti() {
+            const colors = ['#1e40af', '#ef4444', '#ffd700', '#ffffff', '#60a5fa'];
+            
+            for (let i = 0; i < 80; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('confetti');
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const startX = 190 + (Math.random() - 0.5) * 50; 
+                const startY = -50 + (Math.random() - 0.5) * 20;
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+
+                const angle = Math.random() * Math.PI * 2; 
+                const velocity = 50 + Math.random() * 150; 
+                const tx = Math.cos(angle) * velocity; 
+                const ty = Math.sin(angle) * velocity + 100; 
+                const rot = Math.random() * 360; 
+
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.setProperty('--r', `${rot}deg`);
+
+                const duration = 2 + Math.random() * 1;
+                particle.style.animation = `confetti-fall ${duration}s ease-out forwards`;
+
+                envWrapper.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, duration * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
